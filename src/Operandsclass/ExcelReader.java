@@ -17,7 +17,8 @@ public class ExcelReader {
 static String operand;
 static int valA;
 static int valB;
-public int result;
+public static int result;
+public static int c;
 		// TODO Auto-generated method stub
 		public static XSSFWorkbook wb;
 		public static XSSFSheet wbsheet;
@@ -28,34 +29,33 @@ public int result;
 		public static FileOutputStream fileout;
 		public String path;
 		
-	
-
 		
 /*		public static void main(String[] args) throws IOException {
 			// TODO Auto-generated method stub
-			
-	              
-		fis =new FileInputStream("D:\\automationXpath\\Cal.xlsx");
-
-		      
-		operand=CalOperatorSaveResult(operand);
+			fis =new FileInputStream("D:\\automationXpath\\Cal.xlsx");
+			 operand=CalOperatorSaveResult(operand);
 	System.out.println();
-		
-	fis.close();	
+		fis.close();	
 	fileout.close();
-		
-}*/
+		}*/
 	
 		//function to call file which calls and reads excel and update result based on operand
 	public	String 	getfile() throws IOException{
-		
-				fis =new FileInputStream("D:\\automationXpath\\Cal.xlsx");
+			fis =new FileInputStream("D:\\automationXpath\\Cal.xlsx");
 			operand=CalOperatorSaveResult(operand);
 			fis.close();	
 			fileout.close();
-			return "Sucees";
+			return "Success";
 		}
-		
+	
+	//function to Write value  to excel
+	public static  void fileOutStream1() throws IOException
+	 {
+		 fileout = new FileOutputStream("D:\\automationXpath\\Cal.xlsx");
+		 System.out.print("calling filepath");
+           wb.write(fileout);
+fileout.close();
+	 }
 		
 		//function to call specific operand 
 		 public static  String CalOperatorSaveResult(String operand) throws IOException
@@ -96,138 +96,114 @@ public int result;
 				 if (cell == null)
 				     cell = rowcal.createCell(3);
 				 cell.setCellType(Cell.CELL_TYPE_NUMERIC);
-
+				 System.out.println("Operand " + operand);
 				 
 				
-				System.out.println("Operand " + operand);
-				//call  plus operand class function based on operator in excel
-				if(operand.equalsIgnoreCase("+"))
-				{
-					System.out.println("Call plus operand");
-					Add add = new Add();
-				
-					 int c = add.calculate(operand,valA,valB);
-					System.out.println("Final value : " +c);
-				
-				cell.setCellValue(c);
-				 int result =(int) cell.getNumericCellValue();
-				
-				System.out.println("Value of cell after calcultion : " + " of .."+ operand + "..  " +result);
-				 fis.close();
-				 //update ,write values in result column
-				 fileOutStream1();
-
-
-		            }
-			
-				//call  minus operand class function based on operator in excel
-
-				else if(operand.equalsIgnoreCase("-"))
-				{
-					System.out.println("Call minus operand");
-					
-					Minus min = new Minus();
-					
-					 int c = min.calculate(operand,valA,valB);
-					System.out.println("Final value : " +c);
-					 cell.setCellValue(c);
-				
-					 int result =(int) cell.getNumericCellValue();
-
-						System.out.println("Value of cell after calcultion : " + " of .."+ operand + "..  " +result);
-						 fis.close();
-						 //update ,write values in result column
-						 fileOutStream1();
-}
-				//call  multiplication operand class function based on operator in excel
-
-				else if(operand.equalsIgnoreCase("*"))
-				{
-					System.out.println("Call multiplication operand");
-					
-					
-					Multiplication mul = new Multiplication();
-					
-					 int c = mul.calculate(operand,valA,valB);
-					System.out.println("Final value : " +c);
-					cell.setCellValue(c);
-					
-					 int result =(int) cell.getNumericCellValue();
-
-						System.out.println("Value of cell after calcultion : " + " of .."+ operand + "..  " +result);
-						 fis.close();
-						 //update ,write values in result column
-						 fileOutStream1();
-
-  }
-				//call  division operand class function based on operator in excel
-
-				else if(operand.equalsIgnoreCase("/"))
-				{
-					System.out.println("Call division operand");
-					
-					Division div = new Division();
-					
-					 int c = div.calculate(operand,valA,valB);
-					System.out.println("Final value : " +c);
-					cell.setCellValue(c);
-					
-					 int result =(int) cell.getNumericCellValue();
-
-						System.out.println("Value of cell after calcultion : " + " of .."+ operand + "..  " +result);
-						 fis.close();
-						 //update ,write values in result column
-						 fileOutStream1();
-}
-				//call  modulo operand class function based on operator in excel
-
-				else if(operand.equalsIgnoreCase("%"))
-				{
-					System.out.println("Call  Modulo operand");
-
-					
-					Modulo mod = new Modulo();
-					
-					 int c = mod.calculate(operand,valA,valB);
-					System.out.println("Final value : " +c);
-					cell.setCellValue(c);
-					
-					 int result =(int) cell.getNumericCellValue();
-						System.out.println("Value of cell after calcultion : " + " of .."+ operand + "..  " +result);
-
-					 fis.close();
-					 fileOutStream1();
-
-}
-				//Exceptional handling if the operand column is not having appropriate values.
-
-				else {
-					try {
-					
-						System.out.println("Not a valid operand ");
-					}
-					catch(Exception e)
+				 switch(operand)
 					{
-						e.printStackTrace();
+				//call  plus operand class function based on operator in excel
+						case "+":
+							System.out.println("Call plus operand");
+							Add add = new Add();
+						
+							 c = add.calculate(operand,valA,valB);
+							System.out.println("Final value : " +c);
+						
+						cell.setCellValue(c);
+						  result =(int) cell.getNumericCellValue();
+						
+						System.out.println("Value of cell after calcultion : " + " of .."+ operand + "..  " +result);
+						 fis.close();
+						 //update ,write values in result column
+						 fileOutStream1();
+						break;
+						//call  minus operand class function based on operator in excel	
+					case "-":
+						System.out.println("Call minus operand");
+						
+						Minus min = new Minus();
+						
+						  c = min.calculate(operand,valA,valB);
+						System.out.println("Final value : " +c);
+						 cell.setCellValue(c);
+					
+						  result =(int) cell.getNumericCellValue();
+
+							System.out.println("Value of cell after calcultion : " + " of .."+ operand + "..  " +result);
+							 fis.close();
+							 //update ,write values in result column
+							 fileOutStream1();
+							break;
+							//call  multiplication operand class function based on operator in excel	
+						case "*":
+							System.out.println("Call multiplication operand");
+							
+							
+							Multiplication mul = new Multiplication();
+							
+							  c = mul.calculate(operand,valA,valB);
+							System.out.println("Final value : " +c);
+							cell.setCellValue(c);
+							
+							  result =(int) cell.getNumericCellValue();
+		
+								System.out.println("Value of cell after calcultion : " + " of .."+ operand + "..  " +result);
+								 fis.close();
+								 //update ,write values in result column
+								 fileOutStream1();
+							break;
+							//call  division operand class function based on operator in excel
+							
+						case "/":
+							
+							Division div = new Division();
+							
+							  c = div.calculate(operand,valA,valB);
+							System.out.println("Final value : " +c);
+							cell.setCellValue(c);
+							
+							  result =(int) cell.getNumericCellValue();
+		
+								System.out.println("Value of cell after calcultion : " + " of .."+ operand + "..  " +result);
+								 fis.close();
+								 //update ,write values in result column
+								 fileOutStream1();
+							break;
+							
+							//call  modulo operand class function based on operator in excel
+						case " %":
+							System.out.println("Call  Modulo operand");
+							
+							Modulo mod = new Modulo();
+							c = mod.calculate(operand,valA,valB);
+							System.out.println("Final value : " +c);
+							cell.setCellValue(c);
+							
+							  result =(int) cell.getNumericCellValue();
+								System.out.println("Value of cell after calcultion : " + " of .."+ operand + "..  " +result);
+		
+							 fis.close();
+							 fileOutStream1();
+							 break;
+							//Exceptional handling if the operand column is not having appropriate values.
+						case "Yes":
+							try {
+							
+					System.out.println("Not a valid operand ");
+						}
+						catch(Exception e)
+						{
+							e.printStackTrace();
+						}
+							 break;
 					}
-				}
 				
-
-			}
 			
 
-			return operand;
+		}
 			
+	return operand;			
 			
-			}
+}
 		
-		 public static  void fileOutStream1() throws IOException
-		 {
-			 fileout = new FileOutputStream("D:\\automationXpath\\Cal.xlsx");
-			 System.out.print("calling filepath");
-	            wb.write(fileout);
-fileout.close();
-		 }
-		
-	
-	}
+		}
