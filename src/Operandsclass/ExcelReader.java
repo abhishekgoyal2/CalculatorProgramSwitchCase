@@ -90,9 +90,12 @@ fileout.close();
 				{
 					case Cell.CELL_TYPE_STRING:
 						System.out.println(opcell.getStringCellValue());
+						
+						//exception handle if a cell is null 
+					
 						operand =opcell.getStringCellValue();
 						
-						
+						//exception handle if a cell is null 
 						 try{
 									valA=(int) Acell.getNumericCellValue();
 									
@@ -100,9 +103,11 @@ fileout.close();
 								catch(Exception e)
 								{
 									System.out.println(e.getMessage());
-									System.out.println("null pointer exception occured");
+									System.out.println("no cell exist as null pointer exception occured");
 									e.printStackTrace();
 								}
+						 
+						//exception handle if a cell is null 
 						 try{
 								
 							valB=(int) Acel2.getNumericCellValue();
@@ -111,7 +116,7 @@ fileout.close();
 								catch(Exception e)
 								{
 									System.out.println(e.getMessage());
-									System.out.println("null pointer exception occured");
+									System.out.println("no cell exist as null pointer exception occured");
 									e.printStackTrace();
 								}
 						 
@@ -127,11 +132,11 @@ fileout.close();
 						 cell.setCellType(Cell.CELL_TYPE_NUMERIC);
 						 System.out.println("value of String in Operand Column is" +" = " + operand);
 						 
+					//Checking if this valid operand and based on it calling valid operator  inside switch case 
 				if (operand.equalsIgnoreCase("+")||operand.equalsIgnoreCase("-")||operand.equalsIgnoreCase("*")||operand.equalsIgnoreCase("/")||operand.equalsIgnoreCase("%"))
 							{
-								
-							
-						 switch(operand)
+								//passing operand using switch case
+							switch(operand)
 							{
 						//call  plus operand class function based on operator in excel
 								case "+":
@@ -190,6 +195,7 @@ fileout.close();
 									
 									Division div = new Division();
 									
+									//catch run time Arithmetic exception
 									
 									try{
 									  c = div.calculate(operand,valA,valB);
@@ -234,11 +240,10 @@ fileout.close();
 						
 				}
 				
-				
+				//Checking not a valid operand print in console for not a valid operand and skip calcualtor function
 						 else{
 							 
-								
-			 System.out.println("this is not a valid operand skip out the Calculator function");
+ System.out.println("this is not a valid operand skip out the Calculator function");
 							
 				}
 			
@@ -298,150 +303,11 @@ fileout.close();
 						
 				}
 				
-//				 operand =opcell.getStringCellValue();
-//				 try{
-//							valA=(int) Acell.getNumericCellValue();
-//							
-//						}
-//						catch(Exception e)
-//						{
-//							System.out.println(e.getMessage());
-//							System.out.println("null pointer exception occured");
-//							e.printStackTrace();
-//						}
-//				 try{
-//						
-//					valB=(int) Acel2.getNumericCellValue();
-//							
-//						}
-//						catch(Exception e)
-//						{
-//							System.out.println(e.getMessage());
-//							System.out.println("null pointer exception occured");
-//							e.printStackTrace();
-//						}
-//				 
-//				
-//				 
-//				 Row rowcal = wbsheet.getRow(i);
-//				 
-//				 //create cell 
-//				 Cell cell = rowcal.getCell(3); 
-//				 
-//				 if (cell==null)
-//				     cell = rowcal.createCell(3);
-//				 cell.setCellType(Cell.CELL_TYPE_NUMERIC);
-//				 System.out.println("Operand " + operand);
-//				 
-//				
-//				 switch(operand)
-//					{
-//				//call  plus operand class function based on operator in excel
-//						case "+":
-//							System.out.println("Call plus operand");
-//							Add add = new Add();
-//						
-//							 c = add.calculate(operand,valA,valB);
-//							System.out.println("Final value : " +c);
-//						
-//						cell.setCellValue(c);
-//						  result =(int) cell.getNumericCellValue();
-//						
-//						System.out.println("Value of cell after calcultion : " + " of .."+ operand + "..  " +result);
-//						 fis.close();
-//						 //update ,write values in result column
-//						 fileOutStream1();
-//						break;
-//						//call  minus operand class function based on operator in excel	
-//					case "-":
-//						System.out.println("Call minus operand");
-//						
-//						Minus min = new Minus();
-//						
-//						  c = min.calculate(operand,valA,valB);
-//						System.out.println("Final value : " +c);
-//						 cell.setCellValue(c);
-//					
-//						  result =(int) cell.getNumericCellValue();
-//
-//							System.out.println("Value of cell after calcultion : " + " of .."+ operand + "..  " +result);
-//							 fis.close();
-//							 //update ,write values in result column
-//							 fileOutStream1();
-//							break;
-//							//call  multiplication operand class function based on operator in excel	
-//						case "*":
-//							System.out.println("Call multiplication operand");
-//							
-//							
-//							Multiplication mul = new Multiplication();
-//							
-//							  c = mul.calculate(operand,valA,valB);
-//							System.out.println("Final value : " +c);
-//							cell.setCellValue(c);
-//							
-//							  result =(int) cell.getNumericCellValue();
-//		
-//								System.out.println("Value of cell after calcultion : " + " of .."+ operand + "..  " +result);
-//								 fis.close();
-//								 //update ,write values in result column
-//								 fileOutStream1();
-//							break;
-//							//call  division operand class function based on operator in excel
-//							
-//						case "/":
-//							
-//							Division div = new Division();
-//							
-//							
-//							try{
-//							  c = div.calculate(operand,valA,valB);
-//							}
-//							catch (ArithmeticException e) {
-//								// TODO: handle exception
-//								
-//								System.out.println("Division by zero Error ocured");
-//							}
-//							  
-//							  
-//							System.out.println("Final value : " +c);
-//							cell.setCellValue(c);
-//							
-//							  result =(int) cell.getNumericCellValue();
-//		
-//								System.out.println("Value of cell after calcultion : " + " of .."+ operand + "..  " +result);
-//							
-//								 fis.close();
-//								 //update ,write values in result column
-//								 fileOutStream1();
-//								 
-//							break;
-//							
-//							//call  modulo operand class function based on operator in excel
-//						case "%":
-//							System.out.println("Call  Modulo operand");
-//							
-//							Modulo mod = new Modulo();
-//
-//							c = mod.calculate(operand,valA,valB);
-//							System.out.println("Final value : " +c);
-//							cell.setCellValue(c);
-//							
-//							  result =(int) cell.getNumericCellValue();
-//								System.out.println("Value of cell after calcultion : " + " of .."+ operand + "..  " +result);
-//		
-//							 fis.close();
-//							 fileOutStream1();
-//							 break;
-							
-//					}
-				
-			
 
-		}
+				}
 			
 	return operand;			
 			
 }
 		
-		}
+}
