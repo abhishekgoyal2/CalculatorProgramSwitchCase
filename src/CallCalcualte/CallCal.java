@@ -25,7 +25,7 @@ public static void main(String[] args) throws IOException {
 	System.out.println("sucesfully updated"+responce);
 	
 	log.info("this is calling excel read and update");
-
+log.error("error occured");
 		
 		}
 
